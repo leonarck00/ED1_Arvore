@@ -12,8 +12,16 @@ private:
 
 public:
     no();
-    no* montano(item*);
-    item* desmontano(no*);
+    item* getDados();
+    no* getPai();
+    no* getfilhoEsquerdo();
+    no* getfilhoDireito();
+    void setPai(no* aux){pai=aux;}
+    void setfilhoEsquerdo(no* aux){filhoEsquerdo = aux;}
+    void setfilhoDireito(no* aux){filhoDireito = aux;}
+    static no* montano(item *);
+    static item* desmontano(no*);
+
     //geters e seters;
 };
 

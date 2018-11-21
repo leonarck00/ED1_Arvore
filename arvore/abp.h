@@ -13,17 +13,20 @@ public:
     bool inserir(item*);
     item* retirar(item*);
     item* consultar(item*);
-    ~ABP();
-private:
-    no* minimo(no*)const;
-    no* maximo(no*)const;
-    no* antecessor(no*)const;
-    no* sucessor(no*)const;
-public:
+    void mostrarOrdem(no* pNo, std::string &aux)const;
+    void mostrarOrdem(std::string &aux)const;
+    void mostrarPreOrdem(no* pNo, std::string &aux)const;
+    void mostrarPreOrdem(std::string &aux)const;
+    void mostrarPosOrdem(no* pNo, std::string &aux)const;
+    void mostrarPosOrdem(std::string &aux)const;
     bool vazia()const;
-    std::string mostrarOrdem()const;
-    std::string mostrarPosOrdem()const;
-    std::string mostrarPreOrdem()const;
+
+private:
+    no* minimo(no*);
+    no* maximo(no*);
+    no* antecessor(no*);
+    no* sucessor(no*);
+
 };
 
 #endif // ABP_H
