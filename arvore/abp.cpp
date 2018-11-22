@@ -77,50 +77,95 @@ item* ABP::consultar(item* aux)
     {
         return 0;
     }
-    Item *obj=new Item;
-    *obj = *ptr->getDados();
-    no *y=nulo;
-    no *x=nulo;
-    if(y->getfilhoDireito()==nulo || ptr->getfilhoEsquerdo()==nulo)
+    Item *copia=new Item;
+    *copia = *ptr->getDados();
+    return copia;
+
+}
+
+void ABP::mostrarOrdem(no* pNo, std::string &aux)const{
+    if(pno !=nulo)
     {
-        y=ptr;
+        mostrarOrdem(pNo->getfilhoEsquerdo()aux);
+        aux+=pNo->getDados()->getItem();
+        mostrarOrdem(pNo->getfilhoDireito(),aux);
     }
-    else
+}
+
+void ABP::mostrarOrdem(std::string &aux) const{
+    mostrarOrdem(raiz,aux);
+}
+
+void ABP::mostrarPreOrdem(no* pNo,std::string &aux)const{
+    if(pNo != nulo)
     {
-        y=sucessor(ptr);
+        aux+=pNo->getDados()->getItem();
+        mostrarOrdem(pNo->getfilhoEsquerdo(),aux);
+        mostrarOrdem(pNo->getfilhoDireito(),aux);
     }
-    if(y->getfilhoEsquerdo() != nulo)
+}
+
+void ABP::mostrarPreOrdem(std::string &aux)const{
+    mostrarPreOrdem(raiz,aux);
+}
+
+void ABP::mostrarPosOrdem(no* pNo,std::string &aux)const{
+    if(pNo != nulo)
     {
-        x=y->getfilhoEsquerdo();
+        mostrarOrdem(pNo->getfilhoEsquerdo(),aux);
+        mostrarOrdem(pNo->getfilhoDireito(),aux);
+        aux+=pNo->getDados()->getItem();
     }
-    else
+}
+
+bool ABP::vazia(){
+    return (vazia==nulo);
+}
+
+no* ABP::minimo(no *pNo){
+    no* *aux=pNo;
+    while(aux->getfilhoEsquerdo()!=nulo)
     {
-        x=y->getfilhoDireito();
+        aux=aux->getfilhoEsquerdo();
     }
-    if(y->getPai() == nulo)
+    return aux;
+}
+
+No* ABP::maximo(no* pNo){
+    no *aux=pNo;
+    while(aux->getfilhoDireito()!= nulo)
     {
-        raiz=nulo;
-        if(x != nulo)
-        {
-            x->setPai(nulo);
-        }
+        aux=aux->getfilhoDireito();
     }
-    else
+    return aux;
+}
+
+no* ABP::vazia(no* pNo)
+{
+    if(pNo->getfilhoEsquerdo()!=nulo)
     {
-        if(y==y->getPai()->getfilhoEsquerdo())
-        {
-            y->getPai()->setfilhoEsquerdo(x);
-        }
-        else
-        {
-            y->getPai() = *y->setfilhoEsquerdo(x);
-        }
+        return maximo(pNo->getfilhoEsquerdo());
     }
-    if(y != ptr)
+    no *aux=pNo->getPai();
+    while(aux !=nulo && pNo==aux->getfilhoEsquerdo())
     {
-        *ptr->getDados() = *ygetDados();
+        pNo=aux;
+        aux=aux->getPai();
     }
-    delete y;
-    return obj;
+    return aux;
+}
+
+no* ABP::sucessor(no *pNo){
+    if(pNo->getfilhoDireito() != nulo)
+    {
+        return minimo(pNo->getfilhoDireito());
+    }
+    no *aux=pNo->getPai();
+    while(aux != nulo && pNo==aux->getfilhoDireito());
+    {
+        pNo=aux;
+        aux=aux->getPai();
+    }
+    return aux;
 }
 

@@ -16,8 +16,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     no.cpp \
-    abp.cpp
+    abp.cpp \
+    item.cpp
 
 HEADERS += \
     no.h \
-    abp.h
+    abp.h \
+    item.h
