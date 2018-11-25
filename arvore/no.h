@@ -1,18 +1,19 @@
 #ifndef NO_H
 #define NO_H
+#include "item.h"
 
 
 class no
 {
 private:
-    item* dados;
+    Item* dados;
     no* pai;
     no* filhoEsquerdo;
     no* filhoDireito;
 
 public:
     no();
-    item* getDados();
+    Item* getDados();
     no* getPai();
     no* getfilhoEsquerdo();
     no* getfilhoDireito();
@@ -20,7 +21,7 @@ public:
     void setfilhoEsquerdo(no* aux){filhoEsquerdo = aux;}
     void setfilhoDireito(no* aux){filhoDireito = aux;}
     static no* montano(item *);
-    static item* desmontano(no*);
+    static Item* desmontano(no*);
 
     //geters e seters;
 };

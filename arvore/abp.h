@@ -10,9 +10,9 @@ private:
     no* raiz, *nulo;
 public:
     ABP();
-    bool inserir(item*);
-    item* retirar(item*);
-    item* consultar(item*);
+    bool inserir(Item*);
+    Item* retirar(Item*);
+    Item* consultar(Item*);
     void mostrarOrdem(no* pNo, std::string &aux)const;
     void mostrarOrdem(std::string &aux)const;
     void mostrarPreOrdem(no* pNo, std::string &aux)const;

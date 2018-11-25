@@ -5,7 +5,7 @@ no::no()
 
 }
 
-item* no::getDados(){
+Item* no::getDados(){
     return dados;
 }
 
@@ -22,7 +22,7 @@ no* no::getfilhoDireito(){
 }
 
 no* no::desmontano(no* aux){
-    item* ptr = aux->dados;
+    Item* ptr = aux->dados;
     delete aux;
     aux = 0;
     return ptr;

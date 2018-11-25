@@ -2,18 +2,22 @@
 
 ABP::ABP()
 {
-    nulo = no::montano(0);
-    raiz = nulo;
+    raiz=nulo=no::montano(nullptr);
 }
 
-bool ABP::inserir(item* aux){
-    item *trab=consultar(aux);
-    if(trab != 0)
+bool ABP::inserir(Item* aux){
+    if(aux==nullptr)
     {
         return false;
     }
-    int de;
+    Item *trab=consultar(aux);
+    if(trab != nullptr)
+    {
+        return false;
+    }
+    ind DE = 0;
     no *ptr=no::montano(aux);
+
     if(vazia())
     {
         raiz=ptr;
@@ -22,50 +26,57 @@ bool ABP::inserir(item* aux){
         ptr->setfilhoDireito(nulo);
         return true;
     }
-    no* atual = raiz;
-    no* anterior = raiz;
-    while(atual !=nulo)
+
+    no* atual=raiz;
+    no* anterior=raiz;
+    while(atual != nulo)
     {
-        if(ptr->getdados()->getcodbarras() < atual->getdados()->getcodbarras())
+        if(ptr->getDados()->getcodBarras() < atual->getDados()->getcodBarras())
+        {
+            anterior = atua;
+            atual=atual->getfilhoEsquerdo();
+            DE=0;
+        }
+        if(ptr->getDados()->getcodBarras() > atual->getDados()->getcodBarras())
         {
             anterior=atual;
-            atual=atual ->getfilhoDireito();
-            de=0;
+            atual=atual->getfilhoDireito();
+            DE=1;
         }
-        ptr ->setfilhoEsquerdo(nulo);
-        ptr ->setfilhoDireito(nulo);
-        ptr ->setpai(anterior);
-        if(de == 0)
-        {
-            anterior = setfilhoEsquerdo(ptr);
-        }
-        if(de == 1)
-        {
-            anterior -> setfilhoDireito(ptr);
-        }
+    }
+    ptr->setfilhoEsquerdo(nulo);
+    ptr->setfilhoDireito(nulo);
+    ptr->setPai(anterior);
+    if(DE == 0)
+    {
+        anterior->setfilhoEsquerdo(ptr);
+    }
+    if(DE ==1)
+    {
+        anterior->setfilhoDireito(ptr);
     }
     return true;
 }
 
 
-item* ABP::consultar(item* aux)
+Item* ABP::retirar(item* aux)
 {
-    if(aux = 0)
+    if(aux = nullptr)
     {
-        return 0;
+        return nullptr;
     }
     no *ptr=raiz;
     while(ptr != nulo)
     {
-        if(aux -> getcodBarras() < ptr -> getDados() -> getcodBarras())
+        if(aux->getcodBarras() < ptr->getDados()->getcodBarras())
         {
-            ptr=ptr ->getfilhoEsquerdo();
+            ptr=ptr->getfilhoEsquerdo();
         }
         else
         {
-            if(aux->gtecodBarras() > ptr ->getDados() ->getcodBarras())
+            if(aux->getcodBarras() > ptr->getDados()->getcodBarras())
             {
-                ptr = ptr -> getfilhoDireito();
+                ptr = ptr->getfilhoDireito();
             }
             else
             {
@@ -75,18 +86,96 @@ item* ABP::consultar(item* aux)
     }
     if(ptr==nulo)
     {
-        return 0;
+        return nullptr;
     }
-    Item *copia=new Item;
-    *copia = *ptr->getDados();
-    return copia;
+    Item *obj=new Item;
+    *obj = *ptr->getDados();
+    no *y=nulo;
+    no *x=nulo;
+    if(ptr->getfilhoDireito()==nulo || ptr->getfilhoEsquerdo()==nulo)
+    {
+        y=ptr;
+    }
+    else
+    {
+        y=sucessor(ptr);
+    }
+    if(y->getfilhoEsquerdo() != nulo)
+    {
+        x=y->getfilhoEsquerdo();
+    }
+    else
+    {
+        x=y->getfilhoDireito();
+    }
+    if(x != nulo)
+    {
+        x->setPai(y->getPai());
+    }
+    if(y->getPai() == nulo)
+    {
+        raiz=nulo;
+        if(x!=nulo)
+        {
+            x->setPai(nulo);
+        }
+    }
+    else
+    {
+        if(y==y->getPai()->getfilhoEsquerdo())
+        {
+            y->getPai()->setfilhoEsquerdo(x);
+        }
+        else
+        {
+            y->getPai()->setfilhoDireito(x);
+        }
+    }
+    if(y!=ptr)
+    {
+        *ptr->getDados()=*y->getDados();
+    }
+    delete y;
+    return obj;
+}
 
+Item* ABP::consultar(Item *aux){
+    if(aux=nullptr)
+    {
+        return nullptr;
+    }
+    no* ptr=raiz;
+    while(ptr!=nulo)
+    {
+        if(aux->getcodBarras() < ptr->getDados()->getcodBarras())
+        {
+            ptr=ptr->getfilhoEsquerdo();
+        }
+        else
+        {
+            if(aux->getcodBarras() > ptr->getDados()->getcodBarras())
+            {
+                ptr=ptr->getfilhoDireito();
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    if(ptr == nulo)
+    {
+        return nullptr;
+    }
+    Item* copia;
+    copia = ptr->getDados();
+    return copia;
 }
 
 void ABP::mostrarOrdem(no* pNo, std::string &aux)const{
-    if(pno !=nulo)
+    if(pNo !=nulo)
     {
-        mostrarOrdem(pNo->getfilhoEsquerdo()aux);
+        mostrarOrdem(pNo->getfilhoEsquerdo(),aux);
         aux+=pNo->getDados()->getItem();
         mostrarOrdem(pNo->getfilhoDireito(),aux);
     }
@@ -117,13 +206,16 @@ void ABP::mostrarPosOrdem(no* pNo,std::string &aux)const{
         aux+=pNo->getDados()->getItem();
     }
 }
+void ABP::mostrarPosOrdem(std::string &aux) const{
+    mostrarOrdem(raiz,aux);
+}
 
 bool ABP::vazia(){
-    return (vazia==nulo);
+    return (raiz==nulo);
 }
 
 no* ABP::minimo(no *pNo){
-    no* *aux=pNo;
+    no *aux=pNo;
     while(aux->getfilhoEsquerdo()!=nulo)
     {
         aux=aux->getfilhoEsquerdo();
@@ -131,7 +223,7 @@ no* ABP::minimo(no *pNo){
     return aux;
 }
 
-No* ABP::maximo(no* pNo){
+no* ABP::maximo(no* pNo){
     no *aux=pNo;
     while(aux->getfilhoDireito()!= nulo)
     {
@@ -140,14 +232,13 @@ No* ABP::maximo(no* pNo){
     return aux;
 }
 
-no* ABP::vazia(no* pNo)
-{
-    if(pNo->getfilhoEsquerdo()!=nulo)
+no* ABP::antecessor(no *pNo){
+    if(pNo->getfilhoEsquerdo()!= nulo)
     {
-        return maximo(pNo->getfilhoEsquerdo());
+        return maximo(pNo->getfilhoEsquerdo())
     }
     no *aux=pNo->getPai();
-    while(aux !=nulo && pNo==aux->getfilhoEsquerdo())
+    while(aux!=nulo && pNo==aux->getfilhoEsquerdo())
     {
         pNo=aux;
         aux=aux->getPai();
