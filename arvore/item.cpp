@@ -14,11 +14,11 @@ void Item::setQt(int aux){
     qt=aux;
 }
 
-float Item::getValor(){
+double Item::getValor(){
     return valor;
 }
 
-void Item::setValor(float aux){
+void Item::setValor(double aux){
     valor = aux;
 }
 
@@ -32,7 +32,7 @@ void Item::setnomeProd(std::string aux){
 
 std::string Item::getItem(){
     std::string aux;
-    aux="Nome do Produto " + nomeProd + "\nCodigo de barras " + codBarras + "\nPreço do produto " + std::to_string(valor)+"\nQuantidade "+std::to_string(getQt())+"\n";
+    aux="Nome do Produto " + nomeProd + "\nCodigo de barras " + codBarras + "\nPreco do produto " + std::to_string(valor)+"\nQuantidade "+std::to_string(getQt())+"\n";
     return aux;
 }
 

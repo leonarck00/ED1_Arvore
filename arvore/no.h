@@ -20,7 +20,7 @@ public:
     void setPai(no* aux){pai=aux;}
     void setfilhoEsquerdo(no* aux){filhoEsquerdo = aux;}
     void setfilhoDireito(no* aux){filhoDireito = aux;}
-    static no* montano(item *);
+    static no* montano(Item*);
     static Item* desmontano(no*);
 
     //geters e seters;

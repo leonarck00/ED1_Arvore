@@ -15,7 +15,7 @@ bool ABP::inserir(Item* aux){
     {
         return false;
     }
-    ind DE = 0;
+    int DE = 0;
     no *ptr=no::montano(aux);
 
     if(vazia())
@@ -33,7 +33,7 @@ bool ABP::inserir(Item* aux){
     {
         if(ptr->getDados()->getcodBarras() < atual->getDados()->getcodBarras())
         {
-            anterior = atua;
+            anterior = atual;
             atual=atual->getfilhoEsquerdo();
             DE=0;
         }
@@ -59,7 +59,7 @@ bool ABP::inserir(Item* aux){
 }
 
 
-Item* ABP::retirar(item* aux)
+Item* ABP::retirar(Item* aux)
 {
     if(aux = nullptr)
     {
@@ -210,7 +210,7 @@ void ABP::mostrarPosOrdem(std::string &aux) const{
     mostrarOrdem(raiz,aux);
 }
 
-bool ABP::vazia(){
+bool ABP::vazia()const{
     return (raiz==nulo);
 }
 
@@ -235,7 +235,7 @@ no* ABP::maximo(no* pNo){
 no* ABP::antecessor(no *pNo){
     if(pNo->getfilhoEsquerdo()!= nulo)
     {
-        return maximo(pNo->getfilhoEsquerdo())
+        return maximo(pNo->getfilhoEsquerdo());
     }
     no *aux=pNo->getPai();
     while(aux!=nulo && pNo==aux->getfilhoEsquerdo())

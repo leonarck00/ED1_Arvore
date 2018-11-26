@@ -14,8 +14,8 @@ public:
     Item();
     int getQt();
     void setQt(int);
-    float getValor();
-    void setValor(float);
+    double getValor();
+    void setValor(double);
     std::string getnomeProd();
     void setnomeProd(std::string);
     std::string getcodBarras();

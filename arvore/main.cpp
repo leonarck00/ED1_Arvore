@@ -1,8 +1,9 @@
-#include <QCoreApplication>
+#include <iostream>
+#include "testaarvore.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
+    testaArvore test;
+    test.testa();
+    return 0;
 }

@@ -21,7 +21,16 @@ no* no::getfilhoDireito(){
     return filhoDireito;
 }
 
-no* no::desmontano(no* aux){
+no* no::montano(Item *aux){
+    no *ptr=new no;
+    ptr->dados=aux;
+    ptr->pai=nullptr;
+    ptr->filhoEsquerdo=nullptr;
+    ptr->filhoDireito=nullptr;
+    return ptr;
+}
+
+Item* no::desmontano(no* aux){
     Item* ptr = aux->dados;
     delete aux;
     aux = 0;
