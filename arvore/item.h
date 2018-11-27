@@ -2,6 +2,7 @@
 #define ITEM_H
 #include<iostream>
 #include<string>
+#include<iomanip>
 
 
 class Item
@@ -14,8 +15,8 @@ public:
     Item();
     int getQt();
     void setQt(int);
-    double getValor();
-    void setValor(double);
+    float getValor();
+    void setValor(float);
     std::string getnomeProd();
     void setnomeProd(std::string);
     std::string getcodBarras();

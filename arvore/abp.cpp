@@ -37,7 +37,7 @@ bool ABP::inserir(Item* aux){
             atual=atual->getfilhoEsquerdo();
             DE=0;
         }
-        if(ptr->getDados()->getcodBarras() > atual->getDados()->getcodBarras())
+        else
         {
             anterior=atual;
             atual=atual->getfilhoDireito();
@@ -92,7 +92,7 @@ Item* ABP::retirar(Item* aux)
     *obj = *ptr->getDados();
     no *y=nulo;
     no *x=nulo;
-    if(ptr->getfilhoDireito()==nulo || ptr->getfilhoEsquerdo()==nulo)
+    if(ptr->getfilhoDireito()==nulo && ptr->getfilhoEsquerdo()==nulo)
     {
         y=ptr;
     }
@@ -182,6 +182,10 @@ void ABP::mostrarOrdem(no* pNo, std::string &aux)const{
 }
 
 void ABP::mostrarOrdem(std::string &aux) const{
+    if(raiz==nulo)
+    {
+        std::cout<<"\nErro ao mostrar";
+    }
     mostrarOrdem(raiz,aux);
 }
 
@@ -189,25 +193,33 @@ void ABP::mostrarPreOrdem(no* pNo,std::string &aux)const{
     if(pNo != nulo)
     {
         aux+=pNo->getDados()->getItem();
-        mostrarOrdem(pNo->getfilhoEsquerdo(),aux);
-        mostrarOrdem(pNo->getfilhoDireito(),aux);
+        mostrarPreOrdem(pNo->getfilhoEsquerdo(),aux);
+        mostrarPreOrdem(pNo->getfilhoDireito(),aux);
     }
 }
 
 void ABP::mostrarPreOrdem(std::string &aux)const{
+    if(raiz==nulo)
+    {
+        std::cout<<"\nErro ao mostrar";
+    }
     mostrarPreOrdem(raiz,aux);
 }
 
 void ABP::mostrarPosOrdem(no* pNo,std::string &aux)const{
     if(pNo != nulo)
     {
-        mostrarOrdem(pNo->getfilhoEsquerdo(),aux);
-        mostrarOrdem(pNo->getfilhoDireito(),aux);
+        mostrarPosOrdem(pNo->getfilhoEsquerdo(),aux);
+        mostrarPosOrdem(pNo->getfilhoDireito(),aux);
         aux+=pNo->getDados()->getItem();
     }
 }
 void ABP::mostrarPosOrdem(std::string &aux) const{
-    mostrarOrdem(raiz,aux);
+    if(raiz==nulo)
+    {
+        std::cout<<"\nErro ao encontrar";
+    }
+    mostrarPosOrdem(raiz,aux);
 }
 
 bool ABP::vazia()const{

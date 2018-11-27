@@ -13,14 +13,17 @@ void testaArvore::testa(){
     std::string codDeBarra="", mostra="";
     do
     {
-        std::cout<<"\n--Digite a Opcao--\n";
+        std::cout<<"\n---------------------Digite a Opcao------------------------\n";
         std::cout<<"\n1 - Para Inserir\n";
         std::cout<<"\n2 - Para Retirar\n";
         std::cout<<"\n3 - Para Consultar\n";
-        std::cout<<"\n4 - Para Mostrar\n";
-        std::cout<<"\n5 - Para encerrar\n";
+        std::cout<<"\n4 - Para Mostrar em ordem\n";
+        std::cout<<"\n5 - Para Mostrar pre-ordem\n";
+        std::cout<<"\n6 - Para Mostrar pos-ordem\n";
+        std::cout<<"\n7 - Para encerrar\n";
         std::cout<<"\nOPCAO:";
         std::cin>>op;
+        system("cls");
 
         switch (op)
         {
@@ -43,8 +46,8 @@ void testaArvore::testa(){
             buscaaux->setcodBarras(codDeBarra);
             if(obj->consultar(buscaaux) != nullptr)
             {
-                std::cout<<"\nREMOVIDO\n";
                 std::cout<<obj->retirar(buscaaux)->getItem();
+                std::cout<<"\nREMOVIDO\n";
             }
             else
             {
@@ -60,6 +63,7 @@ void testaArvore::testa(){
             if(obj->consultar(buscaaux) != nullptr)
             {
                 std::cout<<"\nEncontrado\n";
+                std::cout<<std::setprecision(2);
                 std::cout<<obj->consultar(buscaaux)->getItem();
             }
             else
@@ -71,7 +75,24 @@ void testaArvore::testa(){
         case 4:
             obj->mostrarOrdem(mostra);
             std::cout<<mostra<<std::endl;
+            mostra="";
             break;
+
+        case 5:
+            obj->mostrarPreOrdem(mostra);
+            std::cout<<mostra<<std::endl;
+            mostra="";
+            break;
+
+        case 6:
+            obj->mostrarPosOrdem(mostra);
+            std::cout<<mostra<<std::endl;
+            mostra="";
+            break;
+
+        case 7:
+            std::cout<<"\nENCERRANDO BYE\n";
+            exit(0);
 
         default:
             break;
@@ -85,7 +106,8 @@ Item* testaArvore::criarItem(){
     Item *ret=new Item;
     std::string nomeProduto;
     std::string codBarras;
-    double val;
+    float val;
+    int qt;
 
     std::cout<<"\nDigite o Nome do Produto: ";
     std::cin.ignore();
@@ -98,7 +120,13 @@ Item* testaArvore::criarItem(){
 
     std::cout<<"\nDigite a Quantidade: ";
     std::cin.ignore();
+    std::cin>>qt;
+    ret->setQt(qt);
+
+    std::cout<<"\nDigite o preco do produto: ";
+    std::cin.ignore();
     std::cin>>val;
     ret->setValor(val);
     return ret;
+
 }
